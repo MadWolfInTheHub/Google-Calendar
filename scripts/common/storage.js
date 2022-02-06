@@ -10,11 +10,12 @@ let storage = {
 
 export const setItem = (key, value) => {
   // ф-ция должна устанавливать значения в объект storage
+  Object.assign(storage, { [key]: value });
 };
 
-export const getItem = (key) => {
+export const getItem = (key) => storage[key];
   // ф-ция должна возвращать по ключу значения из объекта storage
-};
+  
 
 // пример объекта события
 const eventExample = {

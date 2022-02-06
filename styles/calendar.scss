@@ -1,1 +1,14 @@
 // стили сетки календаря и заголовка календаря с днями недели
+.calendar {
+    height: 88vh;
+    
+    &__header {
+        margin-left: 9vh;
+        height: 15vh;
+        display: flex;
+
+        &__day-label {
+            width: 13vh;
+        }
+    }
+}

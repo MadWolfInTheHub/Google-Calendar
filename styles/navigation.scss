@@ -1,1 +1,18 @@
 // стили навигации
+.header {
+    display: flex;
+    padding: 15px 0 20px 9vw;
+    border-bottom: 2px solid #cec6c6;
+    height: 10vh;
+}
+
+.navigation__today-btn {
+    width: 100px;
+    margin-right: 50px;
+    font-size: large;
+    font-weight: 700;
+}
+
+.icon-button {
+    margin-right: 25px;
+}
