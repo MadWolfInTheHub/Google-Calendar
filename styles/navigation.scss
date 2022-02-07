@@ -2,7 +2,10 @@
 .header {
     display: flex;
     padding: 15px 0 20px 10vw;
-    height: 100px;
+    height: 10vh;
+    width: 100vw;
+    position: fixed;
+    background-color: white;
 }
 
 .navigation__today-btn {

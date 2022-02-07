@@ -20,13 +20,14 @@ export const renderWeek = () => {
   calendarWeek.innerHTML = '';
   const startOfWeek = getItem('displayedWeekStart');
   const dayTimeScale = generateDay();
+  
   const calendarDay = generateWeekRange(startOfWeek).map((el => {
     const date = el.getDate();
     const dayOfWeek = document.createElement("div");
     dayOfWeek.classList.add("calendar__day"); 
     dayOfWeek.setAttribute("data-day", `${date}`); 
 
-    dayOfWeek.innerHTML = Array.from(generateDay()).map(el => el.outerHTML).join('');
+    dayOfWeek.innerHTML = Array.from(dayTimeScale).map(el => el.outerHTML).join('');
     return dayOfWeek;
   }));
 

@@ -12,7 +12,6 @@ let day = new Date();
 
 
 function renderCurrentMonth() {
-  displayedMonthElem.innerHTML = '';
   displayedMonthElem.textContent = getDisplayedMonth(day);
   // отрисовать месяц, к которому относиться текущая неделя (getDisplayedMonth)
   // вставить в .navigation__displayed-month
@@ -20,36 +19,32 @@ function renderCurrentMonth() {
 
 const onChangeWeek = (event) => {
   const changeWeek = event.target.getAttribute('data-direction');
+  const week = 7;
   const date = getItem('displayedWeekStart').getDate();
   const month = getItem('displayedWeekStart').getMonth();
   const year = getItem('displayedWeekStart').getFullYear();
   const newDay = getItem('displayedWeekStart');
-  console.log(changeWeek)
+  const renewcalandar = () => {
+    day = newDay;
+    renderWeek();
+    renderHeader();
+    renderCurrentMonth();
+  }
   if (changeWeek === null) return;
   
   if (changeWeek === 'today') {
     setItem('displayedWeekStart', getStartOfWeek(new Date()));
-    renderWeek();
-    renderHeader();
-    day = getItem('displayedWeekStart');
-    renderCurrentMonth();
+    renewcalandar();
   }
   
   if (changeWeek === 'prev') {
-    setItem('displayedWeekStart', getStartOfWeek(new Date(year, month, date - 7)));
-    renderWeek();
-    renderHeader();
-    day = getItem('displayedWeekStart');
-    renderCurrentMonth();
+    setItem('displayedWeekStart', getStartOfWeek(new Date(year, month, date - week)));
+    renewcalandar();
   }
   
   if (changeWeek === 'next') {
-    setItem('displayedWeekStart', getStartOfWeek(new Date(year, month, date + 7)));
-    console.log(getItem('displayedWeekStart').getDate() + 7);
-    renderWeek();
-    renderHeader();
-    day = getItem('displayedWeekStart');
-    renderCurrentMonth();
+    setItem('displayedWeekStart', getStartOfWeek(new Date(year, month, date + week)));
+    renewcalandar();
   }
 /*   const iscurrentDate = event.target.hasAttribute('data-direction', 'today');
   const ispreviousWeek = event.target.hasAttribute('data-direction', 'prev');

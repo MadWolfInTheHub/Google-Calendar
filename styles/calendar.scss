@@ -3,24 +3,31 @@
     height: 100%;
     
     &__header {
-        padding-left: 10%;
-        height: 10%;
+        margin-top: 10vh;
+        padding-left: 10vw;
+        height: 10vh;
+        position: fixed;
         display: flex;
+        width: 100vw;
+        background-color: white;
     }
 
     &__day-label {
         flex: 1 1 0;
-        width: 100vw;
     }
     
     &__week-container{
         display: flex;
         overflow: hidden;
     }
+
+    &__body {
+        margin-top: 20vh;
+    }
     
     &__week{
         display: flex;
-        width: 100%;
+        width: 100vw;
         
     }
     &__day {
@@ -37,7 +44,7 @@
         flex-grow: 1;
         height: 60px;
         border-bottom: 2px solid #808080;
-        background-color: whitesmoke;
+        /* background-color: whitesmoke; */
     }
 
 
