@@ -86,9 +86,8 @@
   display: flex;
 }
 .calendar__day-label {
-  height: auto;
-  flex-grow: 1;
-  flex-shrink: 0;
+  flex: 1 1 0;
+  width: 100vw;
 }
 .calendar__body {
   height: 100vh;
@@ -102,12 +101,15 @@
   flex-direction: column;
   width: 10vw;
 }
-.calendar__time-slot {
-  flex-grow: 1;
-  height: auto;
-}
 .calendar__week {
+  display: flex;
   width: 100vw;
+}
+.calendar__day {
+  flex: 1 1 0;
+  height: 100vh;
+  border: 2px solid #808080;
+  border-right: none;
 }
 
 .day-label__day-name {
@@ -120,6 +122,14 @@
 .day-label__day-number {
   text-align: center;
   font-size: 36px;
+}
+
+.time-slot {
+  flex-grow: 1;
+  height: auto;
+}
+.time-slot__time {
+  text-align: right;
 }
 
 .create-event-btn {

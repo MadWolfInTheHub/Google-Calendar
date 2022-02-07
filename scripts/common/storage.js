@@ -8,6 +8,8 @@ let storage = {
   // это все данные, которые вам нужно хранить для работы приложения
 };
 
+console.log(storage);
+
 export const setItem = (key, value) => {
   // ф-ция должна устанавливать значения в объект storage
   Object.assign(storage, { [key]: value });
