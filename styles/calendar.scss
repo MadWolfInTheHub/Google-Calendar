@@ -21,8 +21,8 @@
     &__week{
         display: flex;
         width: 100%;
+        
     }
-
     &__day {
         display: flex;
         flex-direction: column;
@@ -32,6 +32,7 @@
             border-left: none;
         }
     }
+
     &__time-slot {
         flex-grow: 1;
         height: 60px;
