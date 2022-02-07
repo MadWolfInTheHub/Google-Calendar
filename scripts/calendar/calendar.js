@@ -6,29 +6,28 @@ import { createNumbersArray } from '../common/createNumbersArray.js';
 const generateDay = () => {
   // функция должна сгенерировать и вернуть разметку дня в виде строки
   // разметка состоит из 24 часовых временных слотов (.calendar__time-slot)
-  const dayTimeScale = document.querySelector('.calendar__time-scale');
   const dayTimeEl = createNumbersArray(1, 24).map(el => {
     const dayTimeSlot = document.createElement('div');
     dayTimeSlot.classList.add('calendar__time-slot');
     dayTimeSlot.setAttribute('data-time', `${el}`);
-
-    return dayTimeEl;
+    return dayTimeSlot;
   }) 
-  console.log(dayTimeScale.append(...dayTimeEl));
-  console.log(generateDay());
+  return dayTimeEl;
 };
 
 export const renderWeek = () => {
   const calendarWeek = document.querySelector('.calendar__week');
   const startOfWeek = getItem('displayedWeekStart');
+  const dayTimeScale = generateDay();
   const calendarDay = generateWeekRange(startOfWeek).map((el => {
     const date = el.getDate();
     
     const dayOfWeek = document.createElement("div");
     dayOfWeek.classList.add("calendar__day"); 
     dayOfWeek.setAttribute("data-day", `${date}`); 
-    
-    dayOfWeek
+    console.log(Array.from(dayTimeScale).map(el => el.outerHTML));
+
+    dayOfWeek.innerHTML = Array.from(generateDay()).map(el => el.outerHTML).join('');
     return dayOfWeek;
   }));
 
