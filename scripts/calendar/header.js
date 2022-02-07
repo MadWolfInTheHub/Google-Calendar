@@ -6,6 +6,7 @@ const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 export const renderHeader = () => {
   const calanderWeekDays = document.querySelector('.calendar__header');
+  calanderWeekDays.innerHTML = '';
   const startOfWeek = getItem('displayedWeekStart');
   const calendarDayEl = generateWeekRange(startOfWeek).map((el => {
     const day = daysOfWeek[el.getDay()];

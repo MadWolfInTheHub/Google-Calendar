@@ -17,6 +17,7 @@ const generateDay = () => {
 
 export const renderWeek = () => {
   const calendarWeek = document.querySelector('.calendar__week');
+  calendarWeek.innerHTML = '';
   const startOfWeek = getItem('displayedWeekStart');
   const dayTimeScale = generateDay();
   const calendarDay = generateWeekRange(startOfWeek).map((el => {
