@@ -61,7 +61,7 @@
 
 .header {
   display: flex;
-  padding: 15px 0 20px 9vw;
+  padding: 15px 0 20px 10vw;
   border-bottom: 2px solid #cec6c6;
   height: 10vh;
 }
@@ -78,15 +78,48 @@
 }
 
 .calendar {
-  height: 88vh;
+  height: 100vh;
 }
 .calendar__header {
-  margin-left: 9vh;
+  margin-left: 10vw;
   height: 15vh;
   display: flex;
 }
-.calendar__header__day-label {
-  width: 13vh;
+.calendar__day-label {
+  height: auto;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.calendar__body {
+  height: 100vh;
+}
+.calendar__week-container {
+  display: flex;
+  height: 100vh;
+}
+.calendar__time-scale {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+}
+.calendar__time-slot {
+  flex-grow: 1;
+  height: auto;
+}
+.calendar__week {
+  width: 100vw;
+}
+
+.day-label__day-name {
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.day-label__day-number {
+  text-align: center;
+  font-size: 36px;
 }
 
 .create-event-btn {

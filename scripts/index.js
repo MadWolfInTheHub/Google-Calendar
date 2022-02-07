@@ -15,5 +15,3 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initEventForm();
 });
-
-console.log(createNumbersArray(5, 10))
