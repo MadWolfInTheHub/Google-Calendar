@@ -5,16 +5,66 @@ import { openPopup, closePopup } from '../common/popup.js';
 const weekElem = document.querySelector('.calendar__week');
 const deleteEventBtn = document.querySelector('.delete-event-btn');
 
+const formater = new Intl.DateTimeFormat("en-GB", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+const getTime = (date) => formater.format(date);
+
+
 function handleEventClick(event) {
+  const isWeek = event.target.classList.contains('calendar__time-slot') 
+  const timeSlot = event.target.dataset.time;
+  const dayOfEvent = event.target.closest('.calendar__day').dataset.day;
+
+  if (!isWeek) {
+    return;
+  }
+
+  console.log(timeSlot.textContent)
+  console.log(dayOfEvent)
+
+  openPopup()
   // если произошел клик по событию, то нужно паказать попап с кнопкой удаления
   // установите eventIdToDelete с id события в storage
 }
 
 function removeEventsFromCalendar() {
+  setItem(events, [])
   // ф-ция для удаления всех событий с календаря
 }
 
 const createEventElement = (event) => {
+  const eventArr = getItem('events');
+  const events = eventArr.map(({id, title, description, start, end}) => {
+    const date = document.querySelector(`.calendar__day[data-day='${start.getDate()}']`);
+    const time = date.querySelector(`.calendar__time-slot[data-time='${start.getHours()}']`);
+    time.classList.add('event__container')
+
+    const eventItemEL = document.createElement('div');
+    eventItemEL.classList.add('event');
+    eventItemEL.setAttribute('data-event-id', `${id}`)
+    
+    const eventTitle = document.createElement('div');
+    eventTitle.classList.add('event__title');
+    eventTitle.innerHTML = `${title}`
+    
+    const eventTime = document.createElement('div');
+    eventTime.classList.add('event__time');
+    eventTime.innerHTML = `${getTime(start)} - ${getTime(end)}`
+
+    const eventDescription = document.createElement('div');
+    eventDescription.classList.add('.event__description');
+    eventDescription.innerHTML = `${description}`;
+    
+    eventItemEL.append(eventTitle, eventTime, eventDescription);
+    time.append(eventItemEL)
+    
+    return time;
+
+  })
+  return events;
   // ф-ция создает DOM элемент события
   // событие должно позиционироваться абсолютно внутри нужной ячейки времени внутри дня
   // нужно добавить id события в дата атрибут
@@ -41,3 +91,5 @@ function onDeleteEvent() {
 deleteEventBtn.addEventListener('click', onDeleteEvent);
 
 weekElem.addEventListener('click', handleEventClick);
+
+weekElem.addEventListener('click', createEventElement);
