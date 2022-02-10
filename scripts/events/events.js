@@ -14,17 +14,13 @@ const getTime = (date) => formater.format(date);
 
 
 function handleEventClick(event) {
-  const isWeek = event.target.classList.contains('calendar__time-slot') 
-  const timeSlot = event.target.dataset.time;
-  const dayOfEvent = event.target.closest('.calendar__day').dataset.day;
+  const isEvent = event.target.closest('.event') 
 
-  if (!isWeek) {
+  if (!isEvent) {
     return;
   }
-
-  console.log(timeSlot.textContent)
-  console.log(dayOfEvent)
-
+  const eventId = isEvent.getAttribute('data-event-id');
+  setItem('eventIdToDelete', `${eventId}`)
   openPopup()
   // если произошел клик по событию, то нужно паказать попап с кнопкой удаления
   // установите eventIdToDelete с id события в storage
@@ -36,8 +32,25 @@ function removeEventsFromCalendar() {
 }
 
 const createEventElement = (event) => {
+
+  // ф-ция создает DOM элемент события
+  // событие должно позиционироваться абсолютно внутри нужной ячейки времени внутри дня
+  // нужно добавить id события в дата атрибут
+  // здесь для создания DOM элемента события используйте document.createElement
+};
+
+export const renderEvents = () => {
   const eventArr = getItem('events');
-  const events = eventArr.map(({id, title, description, start, end}) => {
+  const displayedWeek = getItem('displayedWeekStart');
+  const weekEnd = shmoment(displayedWeek).add('days', 7).result();
+  const events = eventArr
+  .filter(el => {
+
+    if (displayedWeek.getTime() < el.start.getTime() && el.start.getTime() < weekEnd.getTime() === true) {
+      return el;
+    }
+  })
+  .map(({id, title, description, start, end}) => {
     const date = document.querySelector(`.calendar__day[data-day='${start.getDate()}']`);
     const time = date.querySelector(`.calendar__time-slot[data-time='${start.getHours()}']`);
     time.classList.add('event__container')
@@ -65,13 +78,6 @@ const createEventElement = (event) => {
 
   })
   return events;
-  // ф-ция создает DOM элемент события
-  // событие должно позиционироваться абсолютно внутри нужной ячейки времени внутри дня
-  // нужно добавить id события в дата атрибут
-  // здесь для создания DOM элемента события используйте document.createElement
-};
-
-export const renderEvents = () => {
   // достаем из storage все события и дату понедельника отображаемой недели
   // фильтруем события, оставляем только те, что входят в текущую неделю
   // создаем для них DOM элементы с помощью createEventElement
@@ -82,6 +88,13 @@ export const renderEvents = () => {
 };
 
 function onDeleteEvent() {
+  const eventIdToDelete = Number(getItem('eventIdToDelete'))
+  console.log(eventIdToDelete)
+  const events = getItem('events');
+  const filterEvents = events.filter(el => el.id !== eventIdToDelete);
+  setItem('events', filterEvents);
+  renderEvents();
+  closePopup();
   // достаем из storage массив событий и eventIdToDelete
   // удаляем из массива нужное событие и записываем в storage новый массив
   // закрыть попап

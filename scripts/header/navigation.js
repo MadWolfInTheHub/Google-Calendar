@@ -27,8 +27,8 @@ const onChangeWeek = (event) => {
   const newDay = getItem('displayedWeekStart');
   const renewcalandar = () => {
     day = newDay;
-    renderWeek();
     renderHeader();
+    renderWeek();
     renderCurrentMonth();
   }
   if (changeWeek === null) return;

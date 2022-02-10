@@ -44,7 +44,7 @@ function onCreateEvent(event) {
   }
   clearEventForm()
   onCloseEventForm();
-  console.log(newEvent);
+  renderEvents();
   // задача этой ф-ции только добавить новое событие в массив событий, что хранится в storage
   // создавать или менять DOM элементы здесь не нужно. Этим займутся другие ф-ции
   // при подтверждении формы нужно считать данные с формы

@@ -32,6 +32,8 @@ export const renderWeek = () => {
   }));
 
   calendarWeek.append(...calendarDay);
+  renderEvents();
+
   // функция должна сгенерировать разметку недели в виде строки и вставить ее на страницу (в .calendar__week)
   // разметка недели состоит из 7 дней (.calendar__day) отображаемой недели
   // массив дней, которые нужно отобразить, считаем ф-цией generateWeekRange на основе displayedWeekStart из storage
