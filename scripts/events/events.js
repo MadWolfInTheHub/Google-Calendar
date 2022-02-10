@@ -14,20 +14,22 @@ const getTime = (date) => formater.format(date);
 
 
 function handleEventClick(event) {
-  const isEvent = event.target.closest('.event') 
+  const isEvent = event.target.closest('.event');
+  const eventCoordinates = isEvent.getBoundingClientRect();
 
   if (!isEvent) {
     return;
   }
   const eventId = isEvent.getAttribute('data-event-id');
   setItem('eventIdToDelete', `${eventId}`)
-  openPopup()
+  openPopup(eventCoordinates.x, (eventCoordinates.y + eventCoordinates.height))
+  console.log(event.target.getBoundingClientRect())
   // если произошел клик по событию, то нужно паказать попап с кнопкой удаления
   // установите eventIdToDelete с id события в storage
 }
 
 function removeEventsFromCalendar() {
-  setItem(events, [])
+  setItem('events', [])
   // ф-ция для удаления всех событий с календаря
 }
 
@@ -89,12 +91,11 @@ export const renderEvents = () => {
 
 function onDeleteEvent() {
   const eventIdToDelete = Number(getItem('eventIdToDelete'))
-  console.log(eventIdToDelete)
-  const events = getItem('events');
-  const filterEvents = events.filter(el => el.id !== eventIdToDelete);
+  const event = getItem('events');
+  const filterEvents = event.filter(el => el.id !== eventIdToDelete);
   setItem('events', filterEvents);
-  renderEvents();
   closePopup();
+  renderEvents();
   // достаем из storage массив событий и eventIdToDelete
   // удаляем из массива нужное событие и записываем в storage новый массив
   // закрыть попап
