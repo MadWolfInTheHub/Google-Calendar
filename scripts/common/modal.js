@@ -2,10 +2,10 @@ const modalElem = document.querySelector('.modal');
 const modalContentElem = document.querySelector('.modal__content');
 
 export function openModal() {
-   
+    modalElem.classList.remove('hidden');
 }
 export function closeModal() {
-   
+    modalElem.classList.add('hidden');
 }
 // опишите ф-ции openModal и closeModal
 // модальное окно работает похожим на попап образом

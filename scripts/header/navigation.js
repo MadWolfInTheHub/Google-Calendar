@@ -12,6 +12,7 @@ let day = new Date();
 
 
 function renderCurrentMonth() {
+  let day = getItem('displayedWeekStart')
   displayedMonthElem.textContent = getDisplayedMonth(day);
   // отрисовать месяц, к которому относиться текущая неделя (getDisplayedMonth)
   // вставить в .navigation__displayed-month
@@ -33,8 +34,9 @@ const onChangeWeek = (event) => {
   if (changeWeek === null) return;
   
   if (changeWeek === 'today') {
+    day = new Date();
     setItem('displayedWeekStart', getStartOfWeek(new Date()));
-    renewcalandar();
+    renewcalandar(day);
   }
   
   if (changeWeek === 'prev') {
@@ -46,9 +48,6 @@ const onChangeWeek = (event) => {
     setItem('displayedWeekStart', getStartOfWeek(new Date(year, month, date + week)));
     renewcalandar();
   }
-/*   const iscurrentDate = event.target.hasAttribute('data-direction', 'today');
-  const ispreviousWeek = event.target.hasAttribute('data-direction', 'prev');
-  const isnextWeek = event.target.hasAttribute('data-direction', 'next'); */
 
   // при переключении недели обновите displayedWeekStart в storage
   // и перерисуйте все необходимые элементы страницы (renderHeader, renderWeek, renderCurrentMonth)

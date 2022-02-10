@@ -1,1 +1,11 @@
 // стили отображаемого в календаре события
+.event {
+    position: absolute;
+    background-color: #6495ed;
+    z-index: 1;
+    color: #ffffff;
+}
+
+.event__container {
+    position: relative;
+}

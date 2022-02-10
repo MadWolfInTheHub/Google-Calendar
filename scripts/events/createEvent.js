@@ -23,7 +23,7 @@ function clearEventForm() {
   // ф-ция должна очистить поля формы от значений
 }
 
-function onCloseEventForm(event) {
+function onCloseEventForm() {
   closeModal()
 }
 

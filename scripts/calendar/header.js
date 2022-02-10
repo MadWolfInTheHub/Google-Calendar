@@ -34,5 +34,17 @@ export const renderHeader = () => {
   // в дата атрибуте каждой ячейки должно хранить для какого часа эта ячейка
 };
 
+
+const createbtn = document.querySelector('.create-event-btn');
+
+const createEvent = (event) => {
+
+  openModal();
+}
+
+export const createeventBtn = () => {
+ createbtn.addEventListener('click', createEvent);
+}
+
 // при клике на кнопку "Create" открыть модальное окно с формой для создания события
 // назначьте здесь обработчик

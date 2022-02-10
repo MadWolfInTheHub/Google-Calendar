@@ -6,6 +6,7 @@ import { setItem } from './common/storage.js';
 import { getStartOfWeek } from './common/time.utils.js';
 import { initEventForm } from './events/createEvent.js';
 import { createNumbersArray } from './common/createNumbersArray.js';
+import { createeventBtn } from './calendar/header.js';
 document.addEventListener('DOMContentLoaded', () => {
   // инициализация всех элементов
   renderTimescale();
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
   initNavigation();
   initEventForm();
+  createeventBtn();
 });
