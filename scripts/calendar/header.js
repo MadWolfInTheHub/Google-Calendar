@@ -4,6 +4,11 @@ import { openModal } from '../common/modal.js';
 
 const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
+const dateInput = document.querySelector(`input[name='date']`);
+const startTimeInput = document.querySelector(`input[name='startTime']`);
+const endTimeInput = document.querySelector(`input[name='endTime']`);
+
+
 export const renderHeader = () => {
   const calanderWeekDays = document.querySelector('.calendar__header');
   calanderWeekDays.innerHTML = '';
@@ -38,7 +43,10 @@ export const renderHeader = () => {
 const createbtn = document.querySelector('.create-event-btn');
 
 const createEvent = (event) => {
-
+  
+  dateInput.value = new Date().toLocaleDateString('en-CA');
+  startTimeInput.value = new Date().getHours() + ':' + new Date().getMinutes()
+  endTimeInput.value = new Date().getHours() + ':' + new Date().getMinutes()
   openModal();
 }
 

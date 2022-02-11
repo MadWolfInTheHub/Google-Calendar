@@ -1,9 +1,14 @@
 import { getItem, setItem } from '../common/storage.js';
 import shmoment from '../common/shmoment.js';
 import { openPopup, closePopup } from '../common/popup.js';
+import { renderWeek } from '../calendar/calendar.js'
+import { openModal } from '../common/modal.js';
 
 const weekElem = document.querySelector('.calendar__week');
 const deleteEventBtn = document.querySelector('.delete-event-btn');
+const dateInput = document.querySelector(`input[name='date']`);
+const startTimeInput = document.querySelector(`input[name='startTime']`);
+const endTimeInput = document.querySelector(`input[name='endTime']`);
 
 const formater = new Intl.DateTimeFormat("en-GB", {
   hour: "2-digit",
@@ -15,15 +20,27 @@ const getTime = (date) => formater.format(date);
 
 function handleEventClick(event) {
   const isEvent = event.target.closest('.event');
-  const eventCoordinates = isEvent.getBoundingClientRect();
-
+  const displayedWeek = getItem('displayedWeekStart');
+  const choosedDate = event.target.closest('.calendar__day').getAttribute(`data-day`)
   if (!isEvent) {
+    let hour = event.target.getAttribute(`data-time`);
+    dateInput.value = new Date(`${displayedWeek.getFullYear()}-${displayedWeek.getMonth() + 1}-${choosedDate}`).toLocaleDateString('en-CA');
+    if (Number(hour) < 10) {
+      hour = '0' + event.target.getAttribute(`data-time`);
+      startTimeInput.value = hour + ':00';
+      endTimeInput.value = hour === '09' ? (Number(hour) + 1) + ':00' : '0' + (Number(hour) + 1) + ':00';
+      openModal();
+      return;
+    }
+    startTimeInput.value = hour + ':00';
+    endTimeInput.value = (Number(hour) + 1) + ':00';
+    openModal();
     return;
   }
+  const eventCoordinates = isEvent.getBoundingClientRect();
   const eventId = isEvent.getAttribute('data-event-id');
   setItem('eventIdToDelete', `${eventId}`)
   openPopup(eventCoordinates.x, (eventCoordinates.y + eventCoordinates.height))
-  console.log(event.target.getBoundingClientRect())
   // если произошел клик по событию, то нужно паказать попап с кнопкой удаления
   // установите eventIdToDelete с id события в storage
 }
@@ -79,7 +96,7 @@ export const renderEvents = () => {
     return time;
 
   })
-  return events;
+  /* return events; */
   // достаем из storage все события и дату понедельника отображаемой недели
   // фильтруем события, оставляем только те, что входят в текущую неделю
   // создаем для них DOM элементы с помощью createEventElement
@@ -90,12 +107,14 @@ export const renderEvents = () => {
 };
 
 function onDeleteEvent() {
-  const eventIdToDelete = Number(getItem('eventIdToDelete'))
   const event = getItem('events');
+  const eventIdToDelete = Number(getItem('eventIdToDelete'))
+  console.log(event)
   const filterEvents = event.filter(el => el.id !== eventIdToDelete);
+  console.log(filterEvents)
   setItem('events', filterEvents);
   closePopup();
-  renderEvents();
+  renderWeek();
   // достаем из storage массив событий и eventIdToDelete
   // удаляем из массива нужное событие и записываем в storage новый массив
   // закрыть попап

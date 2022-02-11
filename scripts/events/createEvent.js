@@ -11,8 +11,8 @@ const dateInput = document.querySelector(`input[name='date']`);
 const startTimeInput = document.querySelector(`input[name='startTime']`);
 const endTimeInput = document.querySelector(`input[name='endTime']`);
 const descriptionInput = document.querySelector(`textarea[name='description']`);
-
 const events = [];
+
 
 function clearEventForm() {
   titleInput.value = '';
@@ -58,6 +58,6 @@ function onCreateEvent(event) {
 
 export function initEventForm() {
   closeEventFormBtn.addEventListener('click', onCloseEventForm);
-  submitBtn.addEventListener('click', onCreateEvent)
+  submitBtn.addEventListener('click', onCreateEvent);
   // подпишитесь на сабмит формы и на закрытие формы
 }

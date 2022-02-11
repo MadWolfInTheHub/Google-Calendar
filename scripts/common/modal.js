@@ -1,5 +1,6 @@
 const modalElem = document.querySelector('.modal');
 const modalContentElem = document.querySelector('.modal__content');
+const tiemRange = document.querySelector('.event-time')
 
 export function openModal() {
     modalElem.classList.remove('hidden');

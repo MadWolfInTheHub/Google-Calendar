@@ -63,17 +63,22 @@
               placeholder="Title"
               class="event-form__field"
             />
+            <span class="error-text error-text__title"></span>
             <div class="event-form__time">
               <input type="date" name="date" class="event-form__field" />
+              <span class="error-text error-text__date"></span>
               <input type="time" name="startTime" class="event-form__field" />
+              <span class="error-text error-text__startTime"></span>
               <span class='event-time'>-</span>
               <input type="time" name="endTime" class="event-form__field" />
+              <span class="error-text error-text__endTime"></span>
             </div>
             <textarea
               name="description"
               placeholder="Description"
               class="event-form__field"
             ></textarea>
+            <span class="error-text error-text__description"></span>
             <button type="submit" class="event-form__submit-btn">Create</button>
           </form>
         </div>
