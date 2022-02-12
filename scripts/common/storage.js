@@ -11,15 +11,13 @@ let storage = {
   // хранит дату понедельника той отображаемой недели
   displayedWeekStart: null,
   // хранит массив всех событий
-  events: [eventExample],
+  events: [/* eventExample */],
   // это все данные, которые вам нужно хранить для работы приложения
 };
-console.log(storage)
 
 export const setItem = (key, value) => {
   // ф-ция должна устанавливать значения в объект storage
   Object.assign(storage, { [key]: value });
-  console.log(storage);
 };
 
 export const getItem = (key) => storage[key];

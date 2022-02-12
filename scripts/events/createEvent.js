@@ -11,7 +11,7 @@ const dateInput = document.querySelector(`input[name='date']`);
 const startTimeInput = document.querySelector(`input[name='startTime']`);
 const endTimeInput = document.querySelector(`input[name='endTime']`);
 const descriptionInput = document.querySelector(`textarea[name='description']`);
-const events = [];
+
 
 
 function clearEventForm() {
@@ -24,12 +24,15 @@ function clearEventForm() {
 }
 
 function onCloseEventForm() {
+  const eventTimePeriod = document.querySelector('.event-time');
+  eventTimePeriod.textContent = '-';
+  clearEventForm()
   closeModal()
 }
 
 function onCreateEvent(event) {
   event.preventDefault();
-  
+  const events = getItem('events');
   const newEvent = {
     id: Math.random(), // id понадобится для работы с событиями
     title: `${titleInput.value}`,
@@ -37,14 +40,32 @@ function onCreateEvent(event) {
     start: new Date(`${dateInput.value}` + ` ${startTimeInput.value}`),
     end: new Date(`${dateInput.value}` + ` ${endTimeInput.value}`),
   };
+
+  const eventStartCheck = events.filter(el => el.start.getTime() < newEvent.start.getTime() && el.end.getTime() > newEvent.start.getTime())
+  const eventEndCheck = events.filter(el => el.start.getTime() < newEvent.end.getTime() && el.end.getTime() > newEvent.end.getTime())
+  const maxEventTime = 1000 * 60 * 60 * 6;
   
-  if (titleInput.value) {
+  if (eventStartCheck.length !== 0) {
+    alert('You already have an event at this time!');
+    return;
+  }
+  if (eventEndCheck.length !== 0) {
+    alert('You already have an event at this time!');
+    return;
+  }
+
+  if ((newEvent.end.getTime() - newEvent.start.getTime()) > maxEventTime) {
+    alert('Max time of the event can not be 6 hours!')
+    return;
+  };
+
+  if (eventStartCheck.length === 0) {
     events.push(newEvent)
     setItem('events', events);
+    clearEventForm()
+    onCloseEventForm();
+    renderEvents();
   }
-  clearEventForm()
-  onCloseEventForm();
-  renderEvents();
   // задача этой ф-ции только добавить новое событие в массив событий, что хранится в storage
   // создавать или менять DOM элементы здесь не нужно. Этим займутся другие ф-ции
   // при подтверждении формы нужно считать данные с формы

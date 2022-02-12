@@ -2,11 +2,12 @@ import { getItem } from '../common/storage.js';
 import { generateWeekRange } from '../common/time.utils.js';
 import { renderEvents } from '../events/events.js';
 import { createNumbersArray } from '../common/createNumbersArray.js';
+import { clock } from '../events/events.js';
 
 const generateDay = () => {
   // функция должна сгенерировать и вернуть разметку дня в виде строки
   // разметка состоит из 24 часовых временных слотов (.calendar__time-slot)
-  const dayTimeEl = createNumbersArray(1, 24).map(el => {
+  const dayTimeEl = createNumbersArray(0, 24).map(el => {
     const dayTimeSlot = document.createElement('div');
     dayTimeSlot.classList.add('calendar__time-slot');
     dayTimeSlot.setAttribute('data-time', `${el}`);
@@ -33,6 +34,7 @@ export const renderWeek = () => {
 
   calendarWeek.append(...calendarDay);
   renderEvents();
+  clock();
 
   // функция должна сгенерировать разметку недели в виде строки и вставить ее на страницу (в .calendar__week)
   // разметка недели состоит из 7 дней (.calendar__day) отображаемой недели

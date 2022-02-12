@@ -55,7 +55,9 @@
     <div class="modal hidden overlay">
       <div class="modal__content">
         <div class="create-event">
-          <button class="create-event__close-btn">+</button>
+          <button class="create-event__close-btn">
+            <i class="fas fa-window-close"></i>
+          </button>
           <form class="event-form">
             <input
               type="text"
@@ -67,7 +69,7 @@
             <div class="event-form__time">
               <input type="date" name="date" class="event-form__field" />
               <span class="error-text error-text__date"></span>
-              <input type="time" name="startTime" class="event-form__field" />
+              <input type="time" name="startTime" class="event-form__field" required/>
               <span class="error-text error-text__startTime"></span>
               <span class='event-time'>-</span>
               <input type="time" name="endTime" class="event-form__field" />
@@ -79,7 +81,10 @@
               class="event-form__field"
             ></textarea>
             <span class="error-text error-text__description"></span>
-            <button type="submit" class="event-form__submit-btn">Create</button>
+            <button type="submit" class="event-form__submit-btn">
+              <i class="fas fa-calendar-plus"></i>
+              Create
+            </button>
           </form>
         </div>
       </div>
@@ -87,7 +92,10 @@
     <div class="popup hidden overlay">
       <div class="popup__overlay"></div>
       <div class="popup__content">
-        <button class="delete-event-btn">Delete</button>
+        <button class="delete-event-btn">
+          <i class="far fa-trash-alt"></i>
+          Delete
+        </button>
       </div>
     </div>
     <script src="scripts/index.js" type="module"></script>

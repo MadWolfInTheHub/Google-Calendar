@@ -16,5 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initEventForm();
   createeventBtn();
+  setInterval(() => {renderWeek()}, 60000); 
 });
 
+/* const autoRefresh = () => {
+  window.location = window.location.href;
+}
+
+setInterval('autoRefresh()', 60000); */

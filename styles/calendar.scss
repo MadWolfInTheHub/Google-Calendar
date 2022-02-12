@@ -3,9 +3,9 @@
     height: 100%;
     
     &__header {
-        margin-top: 10vh;
+        margin-top: 11vh;
         padding-left: 10vw;
-        height: 10vh;
+        height: 14vh;
         position: fixed;
         display: flex;
         width: 100%;
@@ -23,13 +23,14 @@
     }
 
     &__body {
-        margin-top: 20vh;
+        margin-top: 26vh;
     }
     
     &__week{
         display: flex;
         width: 100vw;
         padding-left: 10vw;
+        position: relative;
         
     }
     &__day {

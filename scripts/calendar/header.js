@@ -39,15 +39,28 @@ export const renderHeader = () => {
   // в дата атрибуте каждой ячейки должно хранить для какого часа эта ячейка
 };
 
+const formater = new Intl.DateTimeFormat("en-GB", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+const getTime = (date) => formater.format(date);
 
 const createbtn = document.querySelector('.create-event-btn');
-
 const createEvent = (event) => {
-  
-  dateInput.value = new Date().toLocaleDateString('en-CA');
-  startTimeInput.value = new Date().getHours() + ':' + new Date().getMinutes()
-  endTimeInput.value = new Date().getHours() + ':' + new Date().getMinutes()
   openModal();
+  const eventTimePeriod = document.querySelector('.event-time');
+  dateInput.value = new Date().toLocaleDateString('en-CA');
+  startTimeInput.value = getTime(new Date());
+  endTimeInput.value = getTime(new Date());
+
+  
+  const check = () => {
+    eventTimePeriod.textContent = `${startTimeInput.value} - ${endTimeInput.value}`;
+  }
+  
+  startTimeInput.addEventListener('change', check);
+  endTimeInput.addEventListener('change', check);
 }
 
 export const createeventBtn = () => {

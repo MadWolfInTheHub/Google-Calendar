@@ -22,6 +22,14 @@ function handleEventClick(event) {
   const isEvent = event.target.closest('.event');
   const displayedWeek = getItem('displayedWeekStart');
   const choosedDate = event.target.closest('.calendar__day').getAttribute(`data-day`)
+  const eventTimePeriod = document.querySelector('.event-time');
+  const check = () => {
+    eventTimePeriod.textContent = `${startTimeInput.value} - ${endTimeInput.value}`;
+  }
+
+  startTimeInput.addEventListener('change', check);
+  endTimeInput.addEventListener('change', check);
+
   if (!isEvent) {
     let hour = event.target.getAttribute(`data-time`);
     dateInput.value = new Date(`${displayedWeek.getFullYear()}-${displayedWeek.getMonth() + 1}-${choosedDate}`).toLocaleDateString('en-CA');
@@ -74,8 +82,16 @@ export const renderEvents = () => {
     const time = date.querySelector(`.calendar__time-slot[data-time='${start.getHours()}']`);
     time.classList.add('event__container')
 
+    const eventHeight = () => {
+      const diff = end.getTime() - start.getTime();
+      const result = (diff / 1000) / 60;
+      return result;
+    }
+
     const eventItemEL = document.createElement('div');
     eventItemEL.classList.add('event');
+    eventItemEL.style.marginTop = `${start.getMinutes()}px`;
+    eventItemEL.style.height = `${eventHeight()}px`;
     eventItemEL.setAttribute('data-event-id', `${id}`)
     
     const eventTitle = document.createElement('div');
@@ -107,11 +123,17 @@ export const renderEvents = () => {
 };
 
 function onDeleteEvent() {
+  const minTimeToStart = 1000 * 15;
   const event = getItem('events');
   const eventIdToDelete = Number(getItem('eventIdToDelete'))
-  console.log(event)
+  const eventToCheck = event.filter(el => el.id === eventIdToDelete);
+
+  if(eventToCheck[0].start.getTime() > minTimeToStart) {
+    alert('You can not delete the event which is about to start in less then 15 min!');
+    return;
+  }
+
   const filterEvents = event.filter(el => el.id !== eventIdToDelete);
-  console.log(filterEvents)
   setItem('events', filterEvents);
   closePopup();
   renderWeek();
@@ -122,7 +144,22 @@ function onDeleteEvent() {
 }
 
 deleteEventBtn.addEventListener('click', onDeleteEvent);
-
 weekElem.addEventListener('click', handleEventClick);
-
 weekElem.addEventListener('click', createEventElement);
+
+
+// timer 
+const hour = 60;
+const clockHeight = () => (new Date().getHours() * hour) + new Date().getMinutes()
+
+export const clock = () => {
+  const clockLine = document.createElement('div');
+  clockLine.classList.add('clockline');
+  clockLine.style.marginTop = `${clockHeight()}px`;
+  clockLine.style.height = '1px';
+  clockLine.style.width = '80px';
+  clockLine.style.backgroundColor = 'red';
+  clockLine.style.position = 'absolute';
+
+  weekElem.append(clockLine)
+}

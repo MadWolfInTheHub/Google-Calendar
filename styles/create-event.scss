@@ -9,7 +9,14 @@
     margin-bottom: 10px;
     width: 30px;
     margin-right: 0;
+    background-color: white;
+    border: none;
+    opacity: 0.5;
     cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .event-form {
@@ -23,8 +30,9 @@
 }
 
 .event-form__field {
+    width: 100%;
     margin-bottom: 10px;
-    border: 2px solid rgb(105, 105, 240);
+    border: 2px solid grey;
 }
 
 .event-time {
@@ -32,5 +40,12 @@
     margin-bottom: 10px;
 }
 .event-form__submit-btn{
+    background-color: white;
+    border: none;
+    opacity: 0.5;
     cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
 }
