@@ -45,6 +45,8 @@ function handleEventClick(event) {
     openModal();
     return;
   }
+
+  
   const eventCoordinates = isEvent.getBoundingClientRect();
   const eventId = isEvent.getAttribute('data-event-id');
   setItem('eventIdToDelete', `${eventId}`)
@@ -103,7 +105,7 @@ export const renderEvents = () => {
     eventTime.innerHTML = `${getTime(start)} - ${getTime(end)}`
 
     const eventDescription = document.createElement('div');
-    eventDescription.classList.add('.event__description');
+    eventDescription.classList.add('event__description');
     eventDescription.innerHTML = `${description}`;
     
     eventItemEL.append(eventTitle, eventTime, eventDescription);

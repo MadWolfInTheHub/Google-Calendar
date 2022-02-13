@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 11;
 }
 .modal__content {
   background: #fff;
@@ -61,9 +62,10 @@
 }
 
 .header {
+  top: 0;
   display: flex;
   padding: 15px 0 20px 10vw;
-  height: auto;
+  height: 11vh;
   width: 100vw;
   position: fixed;
   background-color: white;
@@ -100,7 +102,7 @@
   height: 100%;
 }
 .calendar__header {
-  margin-top: 11vh;
+  margin-top: 13vh;
   padding-left: 10vw;
   height: 14vh;
   position: fixed;
@@ -123,6 +125,7 @@
   display: flex;
   width: 100vw;
   padding-left: 10vw;
+  position: relative;
 }
 .calendar__day {
   display: flex;
@@ -231,6 +234,7 @@
   width: 80%;
   border-radius: 4px;
   padding: 5px;
+  overflow: hidden;
 }
 .event__title {
   margin-bottom: 5px;
@@ -241,6 +245,21 @@
 
 .event__container {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+}
+
+.event__title {
+  font-size: 10px;
+}
+
+.event__time {
+  font-size: 6px;
+}
+
+.event__description {
+  font-size: 8px;
 }
 
 .delete-event-btn {
