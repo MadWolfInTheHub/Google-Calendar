@@ -1,8 +1,9 @@
 // стили навигации
 .header {
+    top: 0;
     display: flex;
     padding: 15px 0 20px 10vw;
-    height: auto;
+    height: 11vh;
     width: 100vw;
     position: fixed;
     background-color: white;
