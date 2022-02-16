@@ -1,4 +1,5 @@
 import { getItem, setItem } from '../common/storage.js';
+import { getDisplayedWeekStart } from '../common/storage.js';
 import { renderWeek } from '../calendar/calendar.js';
 import { renderHeader } from '../calendar/header.js';
 import { getStartOfWeek, getDisplayedMonth } from '../common/time.utils.js';
@@ -12,7 +13,7 @@ let day = new Date();
 
 
 function renderCurrentMonth() {
-  let day = getItem('displayedWeekStart')
+  let day = getDisplayedWeekStart()
   displayedMonthElem.textContent = getDisplayedMonth(day);
   // отрисовать месяц, к которому относиться текущая неделя (getDisplayedMonth)
   // вставить в .navigation__displayed-month
@@ -21,10 +22,10 @@ function renderCurrentMonth() {
 const onChangeWeek = (event) => {
   const changeWeek = event.target.getAttribute('data-direction');
   const week = 7;
-  const date = getItem('displayedWeekStart').getDate();
-  const month = getItem('displayedWeekStart').getMonth();
-  const year = getItem('displayedWeekStart').getFullYear();
-  const newDay = getItem('displayedWeekStart');
+  const date = getDisplayedWeekStart().getDate();
+  const month = getDisplayedWeekStart().getMonth();
+  const year = getDisplayedWeekStart().getFullYear();
+  const newDay = getDisplayedWeekStart();
   const renewcalandar = () => {
     day = newDay;
     renderHeader();

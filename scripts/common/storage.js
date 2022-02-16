@@ -1,10 +1,10 @@
-const eventExample = {
+/* const eventExample = {
   id: 0.7520027086457333, // id понадобится для работы с событиями
   title: 'Title',
   description: 'Some description',
   start: new Date(),
   end: new Date(),
-};
+}; */
 let storage = {
   // используется для удаления события
   eventIdToDelete: null,
@@ -16,12 +16,11 @@ let storage = {
 };
 
 export const setItem = (key, value) => {
-  // ф-ция должна устанавливать значения в объект storage
-  Object.assign(storage, { [key]: value });
+  localStorage.setItem(key, JSON.stringify(value));
 };
 
-export const getItem = (key) => storage[key];
-  // ф-ция должна возвращать по ключу значения из объекта storage
+export const getItem = (key) => JSON.parse(localStorage.getItem(key));
+export const getDisplayedWeekStart = () => new Date(JSON.parse(localStorage.getItem('displayedWeekStart')));
   
 
 // пример объекта события

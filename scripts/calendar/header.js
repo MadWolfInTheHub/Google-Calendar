@@ -1,4 +1,4 @@
-import { getItem } from '../common/storage.js';
+import { getDisplayedWeekStart } from '../common/storage.js';
 import { generateWeekRange } from '../common/time.utils.js';
 import { openModal } from '../common/modal.js';
 
@@ -12,7 +12,7 @@ const endTimeInput = document.querySelector(`input[name='endTime']`);
 export const renderHeader = () => {
   const calanderWeekDays = document.querySelector('.calendar__header');
   calanderWeekDays.innerHTML = '';
-  const startOfWeek = getItem('displayedWeekStart');
+  const startOfWeek = getDisplayedWeekStart();
   const calendarDayEl = generateWeekRange(startOfWeek).map((el => {
     const day = daysOfWeek[el.getDay()];
     const date = el.getDate();

@@ -1,4 +1,5 @@
 import { getItem, setItem } from '../common/storage.js';
+import { getDisplayedWeekStart } from '../common/storage.js';
 import shmoment from '../common/shmoment.js';
 import { openPopup, closePopup } from '../common/popup.js';
 import { renderWeek } from '../calendar/calendar.js'
@@ -20,7 +21,7 @@ const getTime = (date) => formater.format(date);
 
 function handleEventClick(event) {
   const isEvent = event.target.closest('.event');
-  const displayedWeek = getItem('displayedWeekStart');
+  const displayedWeek = getDisplayedWeekStart();
   const choosedDate = event.target.closest('.calendar__day').getAttribute(`data-day`)
   const eventTimePeriod = document.querySelector('.event-time');
   const check = () => {
@@ -69,30 +70,33 @@ const createEventElement = (event) => {
 };
 
 export const renderEvents = () => {
-  const eventArr = getItem('events');
-  const displayedWeek = getItem('displayedWeekStart');
+  const eventArr = getItem('events') || [];
+  const displayedWeek = getDisplayedWeekStart();
   const weekEnd = shmoment(displayedWeek).add('days', 7).result();
   const events = eventArr
   .filter(el => {
+    const startTime = new Date(el.start);
 
-    if (displayedWeek.getTime() < el.start.getTime() && el.start.getTime() < weekEnd.getTime() === true) {
+    if (displayedWeek.getTime() < startTime.getTime() && startTime.getTime() < weekEnd.getTime() === true) {
       return el;
     }
   })
   .map(({id, title, description, start, end}) => {
-    const date = document.querySelector(`.calendar__day[data-day='${start.getDate()}']`);
-    const time = date.querySelector(`.calendar__time-slot[data-time='${start.getHours()}']`);
+    const startEl = new Date(start);
+    const endEl = new Date(end);
+    const date = document.querySelector(`.calendar__day[data-day='${startEl.getDate()}']`);
+    const time = date.querySelector(`.calendar__time-slot[data-time='${startEl.getHours()}']`);
     time.classList.add('event__container')
 
     const eventHeight = () => {
-      const diff = end.getTime() - start.getTime();
+      const diff = endEl.getTime() - startEl.getTime();
       const result = (diff / 1000) / 60;
       return result;
     }
 
     const eventItemEL = document.createElement('div');
     eventItemEL.classList.add('event');
-    eventItemEL.style.marginTop = `${start.getMinutes()}px`;
+    eventItemEL.style.marginTop = `${startEl.getMinutes()}px`;
     eventItemEL.style.height = `${eventHeight()}px`;
     eventItemEL.setAttribute('data-event-id', `${id}`)
     
@@ -102,7 +106,7 @@ export const renderEvents = () => {
     
     const eventTime = document.createElement('div');
     eventTime.classList.add('event__time');
-    eventTime.innerHTML = `${getTime(start)} - ${getTime(end)}`
+    eventTime.innerHTML = `${getTime(startEl)} - ${getTime(endEl)}`
 
     const eventDescription = document.createElement('div');
     eventDescription.classList.add('event__description');
@@ -125,12 +129,14 @@ export const renderEvents = () => {
 };
 
 function onDeleteEvent() {
-  const minTimeToStart = 1000 * 15;
+  const minTimeToStart = 1000 * 60 * 15;
   const event = getItem('events');
   const eventIdToDelete = Number(getItem('eventIdToDelete'))
   const eventToCheck = event.filter(el => el.id === eventIdToDelete);
-
-  if(eventToCheck[0].start.getTime() > minTimeToStart) {
+  const startTimeCheck = new Date(eventToCheck[0].start).getTime();
+  const currentTime = new Date().getTime();
+  
+  if(startTimeCheck > currentTime && startTimeCheck - currentTime <= minTimeToStart) {
     alert('You can not delete the event which is about to start in less then 15 min!');
     return;
   }

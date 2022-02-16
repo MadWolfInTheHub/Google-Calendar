@@ -32,7 +32,7 @@ function onCloseEventForm() {
 
 function onCreateEvent(event) {
   event.preventDefault();
-  const events = getItem('events');
+  const events = getItem('events') || [];
   const newEvent = {
     id: Math.random(), // id понадобится для работы с событиями
     title: `${titleInput.value}`,
@@ -41,8 +41,11 @@ function onCreateEvent(event) {
     end: new Date(`${dateInput.value}` + ` ${endTimeInput.value}`),
   };
 
-  const eventStartCheck = events.filter(el => el.start.getTime() < newEvent.start.getTime() && el.end.getTime() > newEvent.start.getTime())
-  const eventEndCheck = events.filter(el => el.start.getTime() < newEvent.end.getTime() && el.end.getTime() > newEvent.end.getTime())
+/*   const startTime = new Date(el.start);
+  const endTime = new Date(end.start); */
+
+  const eventStartCheck = events.filter(el => new Date(el.start).getTime() < newEvent.start.getTime() && new Date(el.end).getTime() > newEvent.start.getTime())
+  const eventEndCheck = events.filter(el => new Date(el.start).getTime() < newEvent.end.getTime() && new Date(el.end).getTime() > newEvent.end.getTime())
   const maxEventTime = 1000 * 60 * 60 * 6;
   
   if (eventStartCheck.length !== 0) {
